@@ -1,0 +1,35 @@
+name, flaws, gold, type, ability_text
+Techno-Arm,1,2,arm 
+Mechno-arm,2,1,arm
+Patchwork Grabber,0,0,arm,You must place 3 cards from your forge into the discard in order to obtain this.
+Collectorarm,3,6,arm,Once per turn, you may forge a part to remove 2 flaws from each part you have.
+Path Grip,1,3,arm,When you complete this part, you must put all cards from the scrapyard into the discard.
+Gilded Arm,1,4,arm,When you complete this part gain 2 gold.
+Mending Arm,2,3,arm,When you complete this part, remove 1 flaw from another part.
+Luxury Limb,3,6,arm,Once per turn, you may gain 2 gold. 
+Function Fist,3,7,arm,Whenever you complete a part, remove a flaw counter from a different part. 
+Effecianitation 2000 Hand,2,5,arm,Whenever you place cards into your forge, gain  1 gold for each card put there
+Arm-morphous,2,4,arm,When you complete this piece, it gains the ability of another arm part you have.  
+Venitor Arm,3,5,arm,Once per turn, if you have no gold, remove a flaw from each of your pieces.  
+Inc Corp. Arm,3,7,arm,Once per turn, look at the top card of the parts deck. You may obtain it. 
+Limited Edition Inc Corp. Arm,2,5,arm,Once per turn, look at the top card of the parts deck. You may buy it. 
+Discontinued Inc Corp. Arm,3,5,arm,Once per turn, look at the top card of the parts deck. You may salvage it. 
+Roboshaper Arm,4,8,arm,You may forge a part to obtain for free a part that is the same part type once per turn. 
+Techno-Leg,1,2,leg 
+Mechno-Leg,2,1,leg 
+Heavy Leg,0,0,leg,When this card is completed, you may not obtain a part next turn. 
+Goldforge Leg,2,4,leg,Once per turn, you may discard 2 cards from your forge to gain 5 gold.
+Fuel Extraction Leg,2,4,leg,Once per turn, you may discard 2 cards from your forge to remove 2 flaw counters from a part you have.
+Broken Deel-leg,2,3,leg,Once per turn, you may buy an additional part, as long as you pay 2 more gold for it.
+High Power Movinator,2,4,leg,Once per turn, you may discard 2 cards from your forge to salvage an additional card this turn.
+High Power Deel-leg,2,4,leg,Once per turn, you may place 2 cards from your forge into the discard, and buy an additional card this turn. 
+High Power Prototype Strider,3,6,leg,Once per turn, you may discard 3 cards from your forge to obtain an additional card this turn for free. 
+Cleaning Kicker,2,4,leg,When this is completed, forge 2 cards from the scrapyard.
+Clearance Kicker,2,5,leg,When this is completed, forge 4 cards from the scrapyard.
+Bonus Leg,3,6,leg,When this is completed, gain gold equal to the number of parts you have. 
+AI Walker,3,6,leg,Once per turn, forge the top 2 cards of the parts deck. 
+Forge Breaker,3,6,leg,Once per turn, you may trash 1 card from the scrapyard
+Effecitination Mark MXVI Leg,4,8,leg,Whenever a card is placed in your trash, you may remove a flaw.
+Forge Synthesizer,4,8,leg,Whenever an opponent completes a part, you may trash the top card of the parts deck. 
+Head of Technology,1,2,leg 
+Head of Mechnology,2,1,leg

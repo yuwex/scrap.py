@@ -4,7 +4,6 @@ from robot import Robot
 from deck import Deck
 from scrapyard import Scrapyard
 
-
 class AbilityManager:
     def __init__(self, deck, scrapyard):
         self.deck = deck
@@ -45,15 +44,8 @@ class AbilityManager:
                 self.scrapyard.take_part(player, top_card)
         
 
-                
 
-
-            
-
-
-
-
-
+"""
 player = Player('Huckleberry Freindmndednd', 2000000)
 
 #Part(name="", flaw=0, gold=0, pType="", ability_text="None", ability_id=0, conditions=False)
@@ -90,3 +82,4 @@ abilities = AbilityManager(deck, scrapyard)
 abilities.do_ability(player, p1)
 
 print(player.robot.display_robot())
+"""

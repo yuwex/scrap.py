@@ -4,6 +4,7 @@ from robot import Robot
 from deck import Deck
 from scrapyard import Scrapyard
 from abilities import AbilityManager
+from controller import Controller
 
 import random
 import os
@@ -13,13 +14,14 @@ class GameManager:
     def __init__(self):
         os.system('clear')
 
+        self.controller = Controller()
         self.players = self.create_players()
         self.deck = Deck()
         self.deck.shuffle()
 
+
         #part = Part('rich mint-condition cat head', 0, 100, 'head', 'mew mew may the gods bless you')
         #deck.replace_top(part)
-
         self.scrapyard = Scrapyard()
         self.scrapyard.add_deck(self.deck, 4)
         
@@ -41,12 +43,9 @@ class GameManager:
         return players
 
     def get_name(self):
+        
+        return self.controller.get_confirm_input('Enter your name.\n> ', 'Are you okay with this name (y/n)?\n> ')
 
-        while(True):
-            name = input('Enter your name.\n> ')
-            if(input('Are you okay with this name (y/n)?\n> ') == 'y'):
-                break
-        return name
 
     def create_players(self):
 
@@ -80,16 +79,16 @@ class GameManager:
         return players
 
     def take_turn(self, player, players):
-        input('It is ' + player.name + '\'s turn. [ENTER]\n> ')
+        self.controller.wait_input('It is ' + player.name + '\'s turn. [ENTER]')
         os.system('clear')
         
         ans = None
         while(ans != 'Take turn'):
-            ans = player.robot.choose_from(['View self', 'View other players', 'View scrapyard', 'Take turn'])
+            ans = self.controller.choose_from(['View self', 'View other players', 'View scrapyard', 'Take turn'])
             if(ans == 'View self'):
                 print('Gold: ' + str(player.gold))
                 player.robot.display_robot()
-                input('[ENTER]\n> ')
+                self.controller.wait_input()
             elif(ans == 'View other players'):
                 players = players[:]
                 players.remove(player)
@@ -97,24 +96,24 @@ class GameManager:
                 for user in players:
                     player_names.append(user.name)
                 
-                ans = player.robot.choose_from(player_names)
+                ans = self.controller.choose_from(player_names)
                 
                 for user in players:
                     if(user.name == ans):
                         print('Gold for ' + ans + ': ' + str(user.gold))
                         user.robot.display_robot()
                         break
-                input('[ENTER]\n> ')
+                self.controller.wait_input()
             elif(ans == 'View scrapyard'):
                 print(self.scrapyard)
-                input('[ENTER]\n> ')
+                self.controller.wait_input()
 
         player.take_turn(self.scrapyard, self.deck)
         os.system('clear')
 
         # list items with abilities / abilities, choose/use abilities
 
-        input(player.name + '\'s turn is over [ENTER]\n> ')
+        self.controller.wait_input(player.name + '\'s turn is over [ENTER]')
         os.system('clear')
 
     def gamestate(self):
@@ -128,6 +127,3 @@ class GameManager:
 
     def start(self):
         self.gamestate()
-
-        
-

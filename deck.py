@@ -1,10 +1,12 @@
 from part import Part
 import random
+import os
 
 class Deck:
     def __init__(self, file='parts.csv'):
         self.cards = []
         
+        os.chdir('scrap.py')
         fin = open('parts.csv', 'r')
         fin.readline()
         for line in fin:

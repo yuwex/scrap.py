@@ -1,8 +1,10 @@
 from part import Part
+from controller import Controller
 
 class Robot:
     def __init__(self):
         self.parts = {'head' : [], 'arm' : [], 'leg' : [], 'shell' : [], 'cell' : [], 'extra' : [], 'weapon' : [], 'forge' : [], 'discard' : []}
+        self.controller = Controller()
 
     def __str__(self):
         return str(self.parts)
@@ -22,7 +24,7 @@ class Robot:
                     parts_list = self.parts[part_type]
                     parts_list.append(self.parts['extra'][0])
 
-                    forge_part = self.choose_from(parts_list, 'Choose a part to forge. #3 is your extra slot item')
+                    forge_part = self.controller.choose_from(parts_list, 'Choose a part to forge. #3 is your extra slot item')
                     self.move_part(forge_part, part_type, 'forge')
                     if(len(self.parts['extra']) == 0):
                         location_go = 'extra'
@@ -30,17 +32,9 @@ class Robot:
                 else:
                     
                     location_go = 'extra'
-            
-            # else:
-
-                # Allow choosing of going to extra slot always
-                # if(not len(self.parts['extra']) > 0):
-                #     ans = self.choose_from(['Yes', 'No'], 'Would you like to add your part to the extra slot?')
-                #     if(ans == 'Yes'):
-                #         location_go = 'extra'
 
             self.parts[location_go].append(part)
-            input('Your part has been moved to the ' + location_go + ' slot [ENTER]')
+            self.controller.wait_input('Your part has been moved to the ' + location_go + ' slot [ENTER]')
 
         else:
 
@@ -52,36 +46,6 @@ class Robot:
     def move_part(self, part, loc1, loc2):
         self.parts[loc1].remove(part)
         self.parts[loc2].append(part)
-
-    def choose_from(self, item_list, text='Which item do you choose?', end='\n> '):
-        
-        text = '\n' + text + '\n'
-        i = 1
-        
-        for item in item_list:
-            if(type(item) == Part):
-                text += (str(i) + ': ' + item.display() + '\n')
-            else:
-                text += (str(i) + ': ' + str(item) + '\n')
-            i += 1
-
-
-        while(True):
-            ans = False
-            try:
-                ans = int(input(text + end))
-                if(ans > 0):
-                    ans = item_list[ans-1]
-                else:
-                    ans = False
-            except:
-                print('Bad Input')
-                ans = False
-
-            if(ans):
-                break
-        
-        return ans
         
     def display_robot(self):
         print('-'*10)
@@ -105,9 +69,9 @@ class Robot:
                 print('There were no removable flaws')
                 break
             if(skip):
-                ans = self.choose_from(flaw_parts + ['Skip'], 'Choose a part to remove 1 flaw from.')
+                ans = self.controller.choose_from(flaw_parts + ['Skip'], 'Choose a part to remove 1 flaw from.')
             else:
-                ans = self.choose_from(flaw_parts, 'Choose a part to remove 1 flaw from.')
+                ans = self.controller.choose_from(flaw_parts, 'Choose a part to remove 1 flaw from.')
 
             location = self.find_part(ans)
             if(location):

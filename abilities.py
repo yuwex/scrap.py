@@ -3,11 +3,13 @@ from player import Player
 from robot import Robot
 from deck import Deck
 from scrapyard import Scrapyard
+from controller import Controller
 
 class AbilityManager:
     def __init__(self, deck, scrapyard):
         self.deck = deck
         self.scrapyard = scrapyard
+        self.controller = Controller()
     def __str__(self):
         pass
 
@@ -39,7 +41,7 @@ class AbilityManager:
             #Inc Corp
             top_card = self.deck.get_top()
             top_card.display()
-            input('[ENTER]')
+            self.controller.wait_input()
             if(player.robot.choose_from(['Yes', 'No'], 'Would you like to obtain this part?') == 'Yes'):
                 self.scrapyard.take_part(player, top_card)
         

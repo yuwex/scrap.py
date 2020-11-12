@@ -1,4 +1,6 @@
 from part import Part
+import os
+import random
 
 class Controller:
 
@@ -41,3 +43,6 @@ class Controller:
             ans = input(text)
             confirm = input(confirm_text)
         return ans
+
+    
+    

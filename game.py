@@ -30,22 +30,13 @@ class GameManager:
         players = 0
 
         while(players == 0):
-            players = input('How many players do you want?\n> ')
-            try:
-                players = int(players)
-            except:
-                players = 0
-            
-            if(players < min_players or players > max_players):
-                players = 0
-                print('There must be between ' + str(min_players) + ' and ' + str(max_players) + ' players.')
+            players = self.controller.choose_from([1, 2, 3, 4, 5, 6, 7, 8], 'How many players do you want?')
 
         return players
 
     def get_name(self):
         
         return self.controller.get_confirm_input('Enter your name.\n> ', 'Are you okay with this name (y/n)?\n> ')
-
 
     def create_players(self):
 
@@ -78,6 +69,7 @@ class GameManager:
         
         return players
 
+    
     def take_turn(self, player, players):
         self.controller.wait_input('It is ' + player.name + '\'s turn. [ENTER]')
         os.system('clear')

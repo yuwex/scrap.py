@@ -24,15 +24,15 @@ class Scrapyard:
             if(player.gold >= part.gold):
                 ans = input('Would you like to buy (b) or salvage (s) this part? (b, s): ')
 
-            if ans not in allowed:
-                ans = ''
-                print('You are not allowed to obtain this part in that way.')
-
             elif(player.gold < part.gold):
                 input('You do not have enough gold to buy this part, so you will salvage it [ENTER]')
                 ans = 's'
                 break
-        
+
+            if ans not in allowed:
+                ans = ''
+                print('You are not allowed to obtain this part in that way.')
+
             if(ans == 'b'):
                 print(str(part.gold) + 'G has been reducted from your account.')
                 player.gold -= part.gold

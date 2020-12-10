@@ -1,5 +1,6 @@
 from part import Part
 from controller import Controller
+import copy
 
 class Robot:
     def __init__(self):
@@ -9,6 +10,16 @@ class Robot:
     def __str__(self):
         return str(self.parts)
     
+    def get_dict(self):
+        parts_dict = copy.deepcopy(self.parts)
+        for part_type in parts_dict.keys():
+            i = 0
+            for part in parts_dict[part_type]:
+                parts_dict[part_type][i] = part.get_dict()
+                i += 1
+        
+        return parts_dict
+
     def get_parts(self):
         return self.parts
 
@@ -108,6 +119,7 @@ class Robot:
         #found_parts_location = []
         for part_type in robot_types:
             for part in robot_parts[part_type]:
+                print(robot_parts[part_type])
                 if(part.flaw > 0):
                     found_parts.append(part)
         

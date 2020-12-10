@@ -12,6 +12,18 @@ class Part:
         
         return ('name: ' + self.name + ', staring flaws: ' + str(self.maxflaw) + ', flaws: ' + str(self.flaw) + ', gold: ' + str(self.gold) + ', type: ' + self.type + ', ability_text: ' + self.ability_text + ', ability_id: ' + str(self.ability_id))
 
+    def get_dict(self):
+        d = {}
+        d['name'] = self.name
+        d['maxflaw'] = self.maxflaw
+        d['gold'] = self.gold
+        d['type'] = self.type
+        d['ability text'] = self.ability_text
+        d['ability id'] = self.ability_id
+        return d
+
+
+
     def display(self, inscrap=False, indent=0):
         indent = indent * ' '
         text = ''

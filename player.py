@@ -13,6 +13,9 @@ class Player:
     def __str__(self):
         return self.name + ', ' + str(self.gold) + ', ' + self.robot.__str__()
     
+    def get_dict(self):
+        return {'gold': self.gold, 'robot': self.robot.get_dict()}
+
     def take_turn(self, scrapyard, deck):
         self.robot.remove_flaws(2, True, True)
 

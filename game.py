@@ -5,6 +5,8 @@ from deck import Deck
 from scrapyard import Scrapyard
 from abilities import AbilityManager
 from controller import Controller
+import aiofirebase
+import asyncio
 
 import random
 import os
@@ -115,7 +117,15 @@ class GameManager:
                 break
             else:
                 self.take_turn(player, self.players)
-                self.gamestate()
+                asyncio.run(self.upload_player_info(player))
+
+        self.gamestate()
+
+                
+    async def upload_player_info(self, player):
+        firebase = firebase = aiofirebase.FirebaseHTTP("https://scrapyard-49049-default-rtdb.firebaseio.com/")
+        await firebase.put(path=player.name, value=player.get_dict())
+        await firebase.close()
 
     def start(self):
         self.gamestate()

@@ -6,7 +6,10 @@ class Deck:
     def __init__(self, file='parts.csv'):
         self.cards = []
         
-        os.chdir('scrap.py')
+        try:
+            os.chdir('scrap.py')
+        except:
+            pass
         fin = open('parts.csv', 'r')
         fin.readline()
         for line in fin:

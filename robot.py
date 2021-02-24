@@ -1,16 +1,15 @@
 from part import Part
-from controller import Controller
 
 class Robot:
     def __init__(self):
         self.parts = {'head' : [], 'arm' : [], 'leg' : [], 'shell' : [], 'cell' : [], 'extra' : [], 'weapon' : [], 'forge' : [], 'discard' : []}
-        self.controller = Controller()
 
     def __str__(self):
         return str(self.parts)
     
     def get_robot(self):
         return self.parts
+
 
     def check_location(self, location):
         # Returns self.parts[location] if true, false if false
@@ -79,4 +78,5 @@ class Robot:
                     found_parts.append(part)
         
         return found_parts
+
 

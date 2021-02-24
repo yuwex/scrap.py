@@ -1,4 +1,4 @@
 from game import GameManager
 
 game1 = GameManager()
-game1.start()
+# game1.start()

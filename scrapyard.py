@@ -4,22 +4,27 @@ from deck import Deck
 
 class Scrapyard:
     def __init__(self, card_list=[]):
-        self.cards = card_list
+        self.parts = card_list
+
+    def get_parts(self):
+        return self.parts
 
     def add_parts(self, parts):
         if(type(parts) == list):
             for part in parts:
-                self.cards.append(part)
+                self.parts.append(part)
         elif(type(parts) == Part):
-            self.cards.append(part)
+            self.parts.append(part)
     
     def remove_part(self, part):
-        if part in self.cards:
-            del self.cards[part]
+        if part in self.parts:
+            del self.parts[part]
     
     def add_deck(self, deck, num=1):
         cards = deck.take_card(num)
         self.add_parts(cards)
+    
+
 
 # print(scrap)
 

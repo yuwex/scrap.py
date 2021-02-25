@@ -7,6 +7,7 @@ class Part:
         self.type = type
         self.ability_text = ability_text
         self.ability_id = ability_id
+        self.is_buyable = True
 
     def add_flaw(self, num=1):
         if(type(num) is int and num > 0):

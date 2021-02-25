@@ -18,7 +18,8 @@ class Scrapyard:
     
     def remove_part(self, part):
         if part in self.parts:
-            del self.parts[part]
+            self.parts.remove(part)
+
     
     def add_deck(self, deck, num=1):
         cards = deck.take_card(num)

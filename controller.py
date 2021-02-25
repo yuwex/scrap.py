@@ -13,107 +13,89 @@ class Controller:
         self.model = model
 
     # cannot have 2 of same name, cannot have more than 8 names, cannot have less than 2 names
-    def create_players(self, name_list):
+    def create_players(self, name_list: list):
         
+        if name_list > 8 or name_list < 2:
+            raise Exception('name_list must be between 8 and 2 (inclusive)')
+
         player_golds = []
         for i in range(2, len(name_list) + 2): # pylint: disable=unused-variable
             player_golds.append(i)
-        
+
         self.model.create_players(name_list, player_golds)
 
     # check if player is right player
-    def take_turn(self, player: Player, parts_rm_flaw: list, action: Action, part: Part = None, tp_location: str = None, tp_use_gold: bool = None):
-
-
+    def take_turn(self, player: Player, parts_rm_flaw: list, action: Action, action_part: Part = None, part_location: str = None, part_use_gold: bool = None):
 
         if parts_rm_flaw:
-            if not len(parts_rm_flaw) == 0:
-                #parts rm flaw is: (part obj)
-                #check not more 2
-                for part in parts_rm_flaw:
-                    part.remove_flaw(1)
             
+            for part in parts_rm_flaw:
+                
+                if len(parts_rm_flaw) > 2:
+                    raise Exception('parts_rm_flaw is too long')
 
-        if action is Action.RemoveFlaw:
-            # action controls = part to remove from
-            # check if part can remove flaw, if part belongs to said player
-            part.remove_flaw(1)
+                if not isinstance(part, Part):
+                    raise Exception('parts_rm_flaw has non-part object')
 
-        if action == Action.GainGold:
-            # action = None
-            player.change_gold()
+                if not player.robot.find_part(part):
+                    raise Exception('parts_rm_flaw part does not belong to player')
+
+        if action == Action.RemoveFlaw:
             
+            if action_part.get_flaw() < 1:
+                raise Exception('You cannot remove flaws from parts without flaws')
+                    
+            if not player.robot.find_part(action_part):
+                raise Exception('action_part not owned by player')
 
         if action == Action.TakePart:
             
-            # action controls = {'part': Part, 'location': 'loc', 'use_gold':True}
             # check if part can be bought, location correct, part correct
+            if not action_part.is_buyable:
+                raise Exception('The specified part cannot be bought')
 
-            location = tp_location
-            use_gold = tp_use_gold
+            if player.robot.check_location(part_location) is False:
+                raise Exception('The specified location was either not found or full')
 
-            if part in self.model.scrapyard.get_parts():
-                if use_gold:
-                    player.change_gold(-part.get_gold())
-                    part.remove_flaw(part.get_flaw())
-                self.model.scrapyard.remove_part(part)
-                player.robot.add_part(part, location)
+            if not action_part in self.model.scrapyard.get_parts():
+                raise Exception('The specified part is not in the scrapyard')
 
+            if part_use_gold and action_part.get_gold() > player.gold:
+                raise Exception('The player does not have enough gold to purchace this part')
+ 
+        if action == Action.RemoveFlaw:
+            action_part.remove_flaw(1)
+
+        if action == Action.GainGold:
+            player.change_gold()
+
+        if action == Action.TakePart:
+
+            location = part_location
+            use_gold = part_use_gold
+
+            if action_part in self.model.scrapyard.get_parts():
+                if part_use_gold:
+                    player.change_gold(-action_part.get_gold())
+                    action_part.remove_flaw(action_part.get_flaw())
+                self.model.scrapyard.remove_part(action_part)
+                player.robot.add_part(action_part, part_location)
+
+        for part in parts_rm_flaw:
+            part.remove_flaw(1)
 
 
 p1 = Player('test', 2)
 mod = Model()
 con = Controller(mod)
-con.take_turn(p1, [], Action.TakePart)
+mod.scrapyard.parts[0] = Part('joe', 5, 5, 'cell')
+print(Part('joe', 5, 5, 'cell').get_gold())
+
+con.take_turn(p1, [], Action.TakePart, action_part=mod.scrapyard.parts[0], part_location='leg', part_use_gold=True)
+
+print(p1.__dict__)
+
+for p in p1.robot.get_all_parts():
+    print(p.__dict__)
 
 # TODO: Action controls
-
-
-
-        # if action is remove 1 repair...
-        # if action is gain 2 gold...
-        # if action is obtain a card...
-
-
-# c = Controller()
-# c.create_players([])
-
-    # def choose_from(self, item_list, text='Which item do you choose?', end='\n> '):
-        
-    #     text = '\n' + text + '\n'
-    #     i = 1
-        
-    #     for item in item_list:
-    #         if(type(item) == Part):
-    #             text += (str(i) + ': ' + item.display() + '\n')
-    #         else:
-    #             text += (str(i) + ': ' + str(item) + '\n')
-    #         i += 1
-
-
-    #     while(True):
-    #         ans = False
-    #         try:
-    #             ans = int(input(text + end))
-    #             if(ans > 0):
-    #                 ans = item_list[ans-1]
-    #             else:
-    #                 ans = False
-    #         except:
-    #             print('Bad Input')
-    #             ans = False
-
-    #         if(ans):
-    #             break
-        
-    #     return ans
-
-    # def wait_input(self, text='[ENTER]'):
-    #     input(text)
-    
-    # def get_confirm_input(self, text, confirm_text='Is this answer ok? (y / n)'):
-    #     confirm = ''
-    #     while not confirm.lower() == 'y':
-    #         ans = input(text)
-    #         confirm = input(confirm_text)
-    #     return ans

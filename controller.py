@@ -12,10 +12,9 @@ class Controller:
     def __init__(self, model: Model):
         self.model = model
 
-    # cannot have 2 of same name, cannot have more than 8 names, cannot have less than 2 names
     def create_players(self, name_list: list):
         
-        if name_list > 8 or name_list < 2:
+        if len(name_list) > 8 or len(name_list) < 2:
             raise Exception('name_list must be between 8 and 2 (inclusive)')
 
         player_golds = []
@@ -26,6 +25,12 @@ class Controller:
 
     # check if player is right player
     def take_turn(self, player: Player, parts_rm_flaw: list, action: Action, action_part: Part = None, part_location: str = None, part_use_gold: bool = None):
+
+        if self.model.get_turn() is None:
+            raise Exception('turns have not been set up')
+
+        if self.model.players[self.model.get_turn()] is not player:
+            raise Exception(f'incorrect turn. Current turn: {self.model.get_turn()}, you entered: {player.identity}')
 
         if parts_rm_flaw:
             
@@ -84,18 +89,23 @@ class Controller:
         for part in parts_rm_flaw:
             part.remove_flaw(1)
 
+        self.model.increment_turn()
 
-p1 = Player('test', 2)
-mod = Model()
-con = Controller(mod)
-mod.scrapyard.parts[0] = Part('joe', 5, 5, 'cell')
-print(Part('joe', 5, 5, 'cell').get_gold())
+    def get_scrapyard(self):
+        return self.model.scrapyard
+    
+    def get_current_turn(self):
+        return self.model.get_turn()
+    
+    def get_player(self, player_id: int):
+        return self.model.players[player_id]
+    
+    def get_players(self):
+        return self.model.players
+    
+    def get_turn(self):
+        return self.model.get_turn()
 
-con.take_turn(p1, [], Action.TakePart, action_part=mod.scrapyard.parts[0], part_location='leg', part_use_gold=True)
-
-print(p1.__dict__)
-
-for p in p1.robot.get_all_parts():
-    print(p.__dict__)
-
-# TODO: Action controls
+    # give player object
+    # give current turn
+    # give scrapyard

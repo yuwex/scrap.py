@@ -26,7 +26,3 @@ class Scrapyard:
         self.add_parts(cards)
     
 
-
-
-# print(scrap)
-

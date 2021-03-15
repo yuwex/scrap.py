@@ -106,6 +106,3 @@ class Controller:
     def get_turn(self):
         return self.model.get_turn()
 
-    # give player object
-    # give current turn
-    # give scrapyard

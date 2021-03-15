@@ -17,23 +17,24 @@ class GameManager:
 
         self.model = Model()
         self.controller = Controller(self.model)
-        self.view = View()
 
         self.controller.create_players(['joe', 'moe', 'koekoe'])
 
-        print('---')
-        print(self.model.scrapyard.__dict__)
-        print('---')
+        self.view = View(self.model, self.controller)
 
-        for player in self.model.players:
-            print(player.__dict__, player.__dict__['robot'].__dict__, '\n')
+        # print('---')
+        # print(self.model.scrapyard.__dict__)
+        # print('---')
+
+        # for player in self.model.players:
+        #     print(player.__dict__, player.__dict__['robot'].__dict__, '\n')
             
-        self.controller.take_turn(self.model.players[0], None, 'part', None)
+        # self.controller.take_turn(self.model.players[0], None, 'part', None)
 
-        for player in self.model.players:
-            print(player.__dict__, player.__dict__['robot'].__dict__, '\n')
+        # for player in self.model.players:
+        #     print(player.__dict__, player.__dict__['robot'].__dict__, '\n')
 
-gm = GameManager()
+
 
         # self.players = self.create_players()
         # self.deck = Deck()

@@ -8,5 +8,8 @@ class Player:
         self.robot = Robot()
         self.identity = identity
 
+    def __str__(self):
+        return self.name
+
     def change_gold(self, gold=2):
         self.gold += gold
